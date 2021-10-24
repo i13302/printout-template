@@ -1,0 +1,17 @@
+ body {
+	font-family: "sans-serif", "Meiryo";
+	padding: 0;
+}
+
+pre {
+	background-color: #f8f8f8;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
