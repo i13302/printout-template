@@ -1,7 +1,7 @@
 #!/bin/sh 
 set -eux
 
-TODAY=`date "+%Y%m%d-%H%M%S_%a"`
+TODAY=`date "+%Y%m%d-%H%M%S"`
 
 # create release
 res=`curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://api.github.com/repos/$GITHUB_REPOSITORY/releases \
@@ -20,7 +20,7 @@ rel_id=`echo ${res} | jq '.id'`
 # upload built pdf
 for _PDFFILE in `ls ${PDFDIR}`
 do
-  curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/${rel_id}/assets?name=\"${TODAY}_${_PDFFILE}``\"\
+  curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/${rel_id}/assets?name=\"${_PDFFILE}_${TODAY}``\"\
     --header 'Content-Type: application/pdf'\
     --upload-file ${PDFDIR}/${_PDFFILE}
 done
