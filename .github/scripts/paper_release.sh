@@ -22,5 +22,5 @@ for _PDFFILE in `ls ${PDFDIR}`
 do
   curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/${rel_id}/assets?name=\"${TODAY}_${_PDFFILE}``\"\
     --header 'Content-Type: application/pdf'\
-    --upload-file ${_PDFFILE}
+    --upload-file ${PDFDIR}/${_PDFFILE}
 done
