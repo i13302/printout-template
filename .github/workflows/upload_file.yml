@@ -2,6 +2,9 @@ name: upload_file
 
 on:
   push:
+    branches:
+      - '*'
+      - '!master'
 
 jobs:
   upload_file:
