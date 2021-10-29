@@ -21,7 +21,7 @@ jobs:
     - name: Set up Git Repository
       uses: actions/checkout@v2
     - name: Add executed
-      uses: chmod +x ./.github/scripts/paper_release.sh 
+      run: chmod +x ./.github/scripts/paper_release.sh 
     - name: Release
       env:
         PDFDIR: work/pdf
