@@ -1,4 +1,4 @@
-name: push_image
+name: upload_file
 
 on:
   push:
