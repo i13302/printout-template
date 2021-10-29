@@ -18,7 +18,7 @@ res=`curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://api.github.com
 rel_id=`echo ${res} | jq '.id'`
 
 # upload built pdf
-for _PDFFILE in `ls work/pdf`
+for _PDFFILE in `ls ${PDFDIR}`
 do
   curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/${rel_id}/assets?name=\"${TODAY}_${_PDFFILE}``\"\
     --header 'Content-Type: application/pdf'\

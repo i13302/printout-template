@@ -20,8 +20,11 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Set up Git Repository
       uses: actions/checkout@v2
+    - name: Add executed
+      uses: chmod +x ./.github/scripts/paper_release.sh 
     - name: Release
       env:
+        PDFDIR: work/pdf
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: chmod +x ./.github/scripts/paper_release.sh && ./.github/scripts/paper_release.sh
+      run: ./.github/scripts/paper_release.sh
   
