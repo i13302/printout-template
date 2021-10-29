@@ -20,7 +20,7 @@ rel_id=`echo ${res} | jq '.id'`
 # upload built pdf
 for _PDFFILE in `ls ${PDFDIR}`
 do
-  curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/${rel_id}/assets?name=\"${_PDFFILE}_${TODAY}``\"\
+  curl -H "Authorization: token $GITHUB_TOKEN" -X POST https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/${rel_id}/assets?name=\"${_PDFFILE}``\"\
     --header 'Content-Type: application/pdf'\
     --upload-file ${PDFDIR}/${_PDFFILE}
 done
