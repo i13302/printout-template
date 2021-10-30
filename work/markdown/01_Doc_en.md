@@ -27,6 +27,6 @@ Phasellus nulla mauris, rhoncus nec odio luctus, faucibus laoreet mauris. Aliqua
 Generate by https://www.lipsum.com/.
 
 ## Picture
-![Pic1](./markdown/pic/pic1.png)
+![Pic1](pic/pic1.png)
 
-![Pic2](./markdown/pic/pic2.png)
+![Pic2](pic/pic2.png)

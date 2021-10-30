@@ -29,6 +29,7 @@
 https://lipsum.sugutsukaeru.jp/index.cgi　より生成．
 
 ## Picture
-![Pic1](./markdown/pic/pic1.png)
+![Pic1](pic/pic1.png)
 
-![Pic2](./markdown/pic/pic2.png)
+![Pic2](pic/pic2.png)
+
