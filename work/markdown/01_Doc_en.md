@@ -25,3 +25,8 @@ Aenean in lacus urna. Sed id libero nec nibh tincidunt dapibus. Quisque ornare, 
 Phasellus nulla mauris, rhoncus nec odio luctus, faucibus laoreet mauris. Aliquam erat volutpat. Donec vitae facilisis mi. Nulla at iaculis ligula. Proin tincidunt, neque eget convallis tempor, lacus eros elementum nunc, ut placerat lectus ante in purus. Suspendisse vitae dolor in nulla pellentesque convallis. Praesent odio nisi, fringilla sit amet erat eu, semper viverra tortor. Ut sed pellentesque ligula. Maecenas pharetra neque non nisl malesuada, vitae efficitur orci auctor. Nullam congue laoreet odio, in commodo nibh luctus ullamcorper. In ultrices urna in enim vehicula, at egestas arcu mattis.
 
 Generate by https://www.lipsum.com/.
+
+## Picture
+![Pic1](./markdown/pic/pic1.png)
+
+![Pic2](./markdown/pic/pic2.png)

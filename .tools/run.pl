@@ -36,7 +36,7 @@ sub docker_cmd_mdtohtml
 	my ($work_dir,$md_dir,$html_dir,$mdtohtml,$pwd,$md_name,$html_name,$ref_css_path)=@_;
 	
 	my @cmd=();
-	$cmd[0]='docker run --rm --volume "'.$pwd.'/'.$work_dir.':/data" '.$mdtohtml.' -f markdown --self-contained '.$md_dir.'/'.$md_name;
+	$cmd[0]='docker run --rm --volume "'.$pwd.'/'.$work_dir.':/data" '.$mdtohtml.' pandoc -f markdown --self-contained '.$md_dir.'/'.$md_name;
 	
 	$cmd[1]='';
 	foreach (@$ref_css_path){
@@ -80,10 +80,12 @@ sub main
 		'TZ=s'       =>\$tz
 	);
 
-	my @md_path=glob $work_dir.'/'.$md_dir.'/*';
-	my @css_path=glob $work_dir.'/'.$css_dir.'/*';
+	my @md_path=glob $work_dir.'/'.$md_dir.'/*.md';
+	my @css_path=glob $work_dir.'/'.$css_dir.'/*.css';
 	
 	trim_workdir_css_files($work_dir,\@css_path);
+
+	system('cp '.$work_dir.'/base/* '.$work_dir.'/pdf/');
 
 	foreach(@md_path){
 		my $md_name=&basename($_);
@@ -91,6 +93,7 @@ sub main
 		my $pdf_name=&ret_ext_change($md_name,'pdf');
 		
 		my @cmd=(&docker_cmd_mdtohtml($work_dir,$md_dir,$html_dir,$mdtohtml,$pwd,$md_name,$html_name,\@css_path) , &docker_cmd_htmltopdf($work_dir,$html_dir,$pdf_dir,$htmltopdf,$pwd,$html_name,$pdf_name,$tz));
+		print Dumper @cmd;
 		system(join('&&',@cmd));
 	}
 }
