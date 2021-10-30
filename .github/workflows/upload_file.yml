@@ -15,7 +15,7 @@ jobs:
 
       - name: Convert file markdown to pdf
         run: |
-          make -f .tools/Makefile CTN2=ghcr.io/i13302/printout run
+          make -f .tools/Makefile CTN1=ghcr.io/i13302/pandoc CTN2=ghcr.io/i13302/printout run
 
       - name: Upload file pdf.
         uses: actions/upload-artifact@master
