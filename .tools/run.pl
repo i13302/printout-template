@@ -23,6 +23,14 @@ sub ret_ext_change
 	return $dstfile.'.'.$toext;
 }
 
+sub trim_dirname
+{
+	my ($ref_paths)=@_;
+	foreach(@$ref_paths){
+		$_=&basename($_);
+	}
+}
+
 sub trim_workdir_css_files
 {
 	my ($work_dir,$ref_css_path)=@_;
@@ -87,15 +95,25 @@ sub main
 
 	system('cp '.$work_dir.'/base/* '.$work_dir.'/pdf/');
 
+	my @pdf_path=();
 	foreach(@md_path){
 		my $md_name=&basename($_);
 		my $html_name=&ret_ext_change($md_name,'html');
 		my $pdf_name=&ret_ext_change($md_name,'pdf');
+		push(@pdf_path,$pdf_name);
 		
 		my @cmd=(&docker_cmd_mdtohtml($work_dir,$md_dir,$html_dir,$mdtohtml,$pwd,$md_name,$html_name,\@css_path) , &docker_cmd_htmltopdf($work_dir,$html_dir,$pdf_dir,$htmltopdf,$pwd,$html_name,$pdf_name,$tz));
 		print Dumper @cmd;
 		system(join('&&',@cmd));
 	}
+	
+	my @builed_pdf_path=glob $work_dir.'/'.$pdf_dir.'/*.pdf';
+	trim_dirname(\@builed_pdf_path);
+	
+	my @miss_files=grep {my $t=$_; ! grep /^$t$/, @builed_pdf_path} @pdf_path;
+	print Dumper @miss_files;
+	return @miss_files;
 }
 
-&main;
+my $STATUS=&main;
+exit $STATUS;
