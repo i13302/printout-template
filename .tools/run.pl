@@ -36,14 +36,14 @@ sub docker_cmd_mdtohtml
 	my ($work_dir,$md_dir,$html_dir,$mdtohtml,$pwd,$md_name,$html_name,$ref_css_path)=@_;
 	
 	my @cmd=();
-	$cmd[0]='docker run --rm --volume "'.$pwd.'/'.$work_dir.':/data" '.$mdtohtml.' pandoc -f markdown --self-contained '.$md_dir.'/'.$md_name;
+	$cmd[0]='docker run --rm --volume "'.$pwd.'/'.$work_dir.':/data" '.$mdtohtml.' \'cd '.$md_dir.'; pandoc -f markdown --self-contained '.$md_name;
 	
 	$cmd[1]='';
 	foreach (@$ref_css_path){
-		$cmd[1].='-c '.$_.' ';
+		$cmd[1].='-c ../'.$_.' ';
 	}
 	
-	$cmd[2]='-o '.$html_dir.'/'.$html_name;
+	$cmd[2]='-o ../'.$html_dir.'/'.$html_name.'\'';
 	
 	return join(' ',@cmd);
 }
@@ -63,7 +63,7 @@ sub main
 	my $html_dir='html';
 	my $css_dir ='css';
 	my $pdf_dir ='pdf';
-	my $mdtohtml ='pandoc/latex';
+	my $mdtohtml ='i13302/pandoc';
 	my $htmltopdf='i13302/printout';
 	my $pwd      =&ret_chomp(`pwd`);
 	my $tz       ='Asia/Tokyo';
