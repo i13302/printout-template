@@ -18,7 +18,8 @@
 -
  
  run:
- 	perl run.pl --htmltopdf=$(CTN2) --work=${WORKDIR} --markdown=${MDDIR} --html=${HTMLDIR} --css=${CSSDIR} --pdf=${PDFDIR} --mdtohtml=${CTN1} --htmltopdf=${CTN2} --TZ=${TZ}
+ 	perl .tools/run.pl --htmltopdf=$(CTN2) --work=${WORKDIR} --markdown=${MDDIR} --html=${HTMLDIR} --css=${CSSDIR} --pdf=${PDFDIR} --mdtohtml=${CTN1} --htmltopdf=${CTN2} --TZ=${TZ}
+-	perl run.pl --htmltopdf=$(CTN2) --work=${WORKDIR} --markdown=${MDDIR} --html=${HTMLDIR} --css=${CSSDIR} --pdf=${PDFDIR} --mdtohtml=${CTN1} --htmltopdf=${CTN2} --TZ=${TZ}
  
 -test_file:
 -	docker run --rm --volume "$(shell pwd)/${TESTDIR}:/data" $(CTN1) "cd ${MDDIR} && $(CC) -f markdown --self-contained 01_Doc_en.md -c ../${CSSDIR}/markdown.css -c ../${CSSDIR}/markdown-pdf.css -o ../${HTMLDIR}/01_Doc_en.html"
