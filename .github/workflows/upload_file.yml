@@ -3,19 +3,30 @@ name: upload_file
 on:
   push:
     branches:
-      - '*'
-      - '!master'
+      - "*"
+      - "!master"
 
 jobs:
   upload_file:
+    env:
+      CTN1: ghcr.io/i13302/pandoc
+      CNT2: ghcr.io/i13302/printout
     runs-on: ubuntu-20.04
     steps:
       - name: chackout
         uses: actions/checkout@v2
 
+      - name: Pull Image
+        run: |
+          docker pull ${{ env.CTN1 }}
+          docker pull ${{ env.CTN2 }}
+
+      - name: Cache Dcoker Layer
+        uses: satackey/action-docker-layer-caching@v0.0.11
+
       - name: Convert file markdown to pdf
         run: |
-          make -f .tools/Makefile CTN1=ghcr.io/i13302/pandoc CTN2=ghcr.io/i13302/printout run
+          make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
 
       - name: Upload file pdf.
         uses: actions/upload-artifact@master
