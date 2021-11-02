@@ -28,5 +28,5 @@ jobs:
       - name: Upload file pdf.
         uses: actions/upload-artifact@master
         with:
-          name: convert_dir
+          name: PDFDIR-$(date '+%Y%m%d')
           path: work/pdf/*.pdf
