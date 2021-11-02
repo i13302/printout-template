@@ -9,8 +9,8 @@ on:
 jobs:
   upload_file:
     env:
-      CTN1: ghcr.io/i13302/pandoc
-      CTN2: ghcr.io/i13302/printout
+      CTN1: ghcr.io/i13302/pandoc:latest
+      CTN2: ghcr.io/i13302/printout:latest
     runs-on: ubuntu-20.04
     steps:
       - name: chackout
