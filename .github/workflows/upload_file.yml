@@ -25,8 +25,11 @@ jobs:
         run: |
           make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
 
+      - name: Set DATE
+        run: echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV
+
       - name: Upload file pdf.
         uses: actions/upload-artifact@master
         with:
-          name: PDFDIR-$(date '+%Y%m%d')
+          name: PDFDIR-${{ env.DATE }}
           path: work/pdf/*.pdf
