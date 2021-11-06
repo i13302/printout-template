@@ -13,8 +13,16 @@ PDFDIR=pdf
 setup:
 	mkdir -p ${WORKDIR}/${CSSDIR} ${WORKDIR}/${HTMLDIR} ${WORKDIR}/${MDDIR} ${WORKDIR}/${PDFDIR}
 
+base:
+	-cp ${WORKDIR}/base/*.pdf ${WORKDIR}/pdf/
+	
 run:
-	perl .tools/run.pl --htmltopdf=$(CTN2) --work=${WORKDIR} --markdown=${MDDIR} --html=${HTMLDIR} --css=${CSSDIR} --pdf=${PDFDIR} --mdtohtml=${CTN1} --htmltopdf=${CTN2} --TZ=${TZ}
+	docker run --rm --volume "$(shell pwd)/${WORKDIR}:/data" $(CTN1) pandoc ${MDDIR} ${HTMLDIR} ${CSSDIR}
+
+	bash .tools/printout.sh ${WORKDIR} ${HTMLDIR} ${PDFDIR} ${CTN2} "${TZ}"
+
+check:
+	perl .tools/check.pl --work=${WORKDIR} --markdown=${MDDIR} --pdf=${PDFDIR}
 
 clean:
 	-rm -f ${WORKDIR}/${HTMLDIR}/*.html ${WORKDIR}/${PDFDIR}/*.pdf

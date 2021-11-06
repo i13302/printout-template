@@ -1,4 +1,4 @@
-name: upload_file
+name: Upload File
 
 on:
   push:
@@ -23,7 +23,9 @@ jobs:
 
       - name: Convert file markdown to pdf
         run: |
+          make -f .tools/Makefile base
           make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
+          make -f .tools/Makefile check
 
       - name: Set DATE
         run: echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV

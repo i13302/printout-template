@@ -1,4 +1,4 @@
-name: "master push"
+name: Release
 
 on:
   push:
@@ -7,6 +7,9 @@ on:
 
 jobs:
   release:
+    env:
+      CTN1: ghcr.io/i13302/pandoc:latest
+      CTN2: ghcr.io/i13302/printout:latest
     runs-on: ubuntu-20.04
     steps:
       - name: chackout
@@ -14,7 +17,9 @@ jobs:
 
       - name: Convert file markdown to pdf
         run: |
-          make -f .tools/Makefile CTN1=ghcr.io/i13302/pandoc CTN2=ghcr.io/i13302/printout run
+          make -f .tools/Makefile base
+          make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
+          make -f .tools/Makefile check
 
       - name: Add executed
         run: chmod +x ./.github/scripts/paper_release.sh
