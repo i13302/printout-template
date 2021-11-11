@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - "*"
-      - '*/*'
+      - "*/*"
       - "!master"
 
 jobs:
@@ -22,11 +22,14 @@ jobs:
           docker pull ${{ env.CTN1 }}
           docker pull ${{ env.CTN2 }}
 
+      - name: Copy base dir to pdf dir
+        run: make -f .tools/Makefile base
+
       - name: Convert file markdown to pdf
-        run: |
-          make -f .tools/Makefile base
-          make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
-          make -f .tools/Makefile check
+        run: make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
+
+      - name: check Convert
+        run: make -f .tools/Makefile check
 
       - name: Set DATE
         run: echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV

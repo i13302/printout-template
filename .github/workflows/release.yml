@@ -12,14 +12,17 @@ jobs:
       CTN2: ghcr.io/i13302/printout:latest
     runs-on: ubuntu-20.04
     steps:
-      - name: chackout
+      - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Copy base dir to pdf dir
+        run: make -f .tools/Makefile base
+
       - name: Convert file markdown to pdf
-        run: |
-          make -f .tools/Makefile base
-          make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
-          make -f .tools/Makefile check
+        run: make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
+
+      - name: check Convert
+        run: make -f .tools/Makefile check
 
       - name: Add executed
         run: chmod +x ./.github/scripts/paper_release.sh
