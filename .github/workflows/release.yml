@@ -15,6 +15,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Pull Image
+        run: |
+          docker pull ${{ env.CTN1 }}
+          docker pull ${{ env.CTN2 }}
+
       - name: Copy base dir to pdf dir
         run: make -f .tools/Makefile base
 
