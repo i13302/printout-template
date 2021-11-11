@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - "*"
-      - '*/*'
+      - "*/*"
       - "!master"
 
 jobs:
@@ -14,7 +14,15 @@ jobs:
       CTN2: ghcr.io/i13302/printout:latest
     runs-on: ubuntu-20.04
     steps:
-      - name: chackout
+      - name: Extract branch name
+        shell: bash
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+        id: extract_branch
+
+      - name: Set DATE
+        run: echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV
+
+      - name: Checkout
         uses: actions/checkout@v2
 
       - name: Pull Image
@@ -22,17 +30,17 @@ jobs:
           docker pull ${{ env.CTN1 }}
           docker pull ${{ env.CTN2 }}
 
-      - name: Convert file markdown to pdf
-        run: |
-          make -f .tools/Makefile base
-          make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
-          make -f .tools/Makefile check
+      - name: Copy base dir to pdf dir
+        run: make -f .tools/Makefile base
 
-      - name: Set DATE
-        run: echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV
+      - name: Convert file markdown to pdf
+        run: make -f .tools/Makefile CTN1=${{ env.CTN1 }} CTN2=${{ env.CTN2 }} run
+
+      - name: Check Convert
+        run: make -f .tools/Makefile check
 
       - name: Upload file pdf.
         uses: actions/upload-artifact@master
         with:
-          name: PDFDIR-${{ env.DATE }}
+          name: PDFDIR-${{ env.DATE }}-${{ steps.extract_branch.outputs.branch }}
           path: work/pdf/*.pdf
