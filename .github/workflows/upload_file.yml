@@ -22,6 +22,7 @@ jobs:
       - name: Print branch name
         env:
           BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
+        run: echo ${{ env.BRANCH_NAME }}
 
       - name: Set DATE
         run: echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV
@@ -46,5 +47,5 @@ jobs:
       - name: Upload file pdf.
         uses: actions/upload-artifact@master
         with:
-          name: PDFDIR-${{ env.DATE }}-${{ steps.extract_branch.outputs.branch }}
+          name: PDFDIR-${{ env.DATE }}-${{ env.BRANCH_NAME }}
           path: work/pdf/*.pdf
