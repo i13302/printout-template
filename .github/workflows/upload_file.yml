@@ -22,7 +22,7 @@ jobs:
       - name: Set DATE
         run: echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV
 
-      - name: chackout
+      - name: Checkout
         uses: actions/checkout@v2
 
       - name: Pull Image
