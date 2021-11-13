@@ -14,10 +14,8 @@ jobs:
       CTN2: ghcr.io/i13302/printout:latest
     runs-on: ubuntu-20.04
     steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
-        id: extract_branch
+      - name: Set BRANCH
+        run: echo "${GITHUB_REF#refs/heads/}" | sed -e 's/\//_/g' -e 's/^/BRANCH=/g' >> $GITHUB_ENV
 
       - name: Set DATE
         run: echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV
@@ -42,5 +40,5 @@ jobs:
       - name: Upload file pdf.
         uses: actions/upload-artifact@master
         with:
-          name: PDFDIR-${{ env.DATE }}-${{ steps.extract_branch.outputs.branch }}
+          name: PDFDIR-${{ env.DATE }}-${{ env.BRANCH }}
           path: work/pdf/*.pdf
