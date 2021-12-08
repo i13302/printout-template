@@ -29,6 +29,12 @@ jobs:
       - name: Check Convert
         run: make -f .tools/Makefile check
 
+      - name: Upload file pdf.
+        uses: actions/upload-artifact@master
+        with:
+          name: PDFDIR-${{ env.DATE }}-${{ env.BRANCH }}
+          path: work/pdf/*.pdf
+
       - name: Add executed
         run: chmod +x ./.github/scripts/paper_release.sh
 
