@@ -29,6 +29,12 @@ jobs:
       - name: Check Convert
         run: make -f .tools/Makefile check
 
+      - name: Set BRANCH
+        run: echo "${GITHUB_REF#refs/heads/}" | sed -e 's/\//_/g' -e 's/^/BRANCH=/g' >> $GITHUB_ENV
+
+      - name: Set DATE
+        run: echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV
+
       - name: Upload file pdf.
         uses: actions/upload-artifact@master
         with:
