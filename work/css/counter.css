@@ -1,0 +1,23 @@
+h4{
+	counter-increment: h4number;
+}
+h4::before{
+	content: "["counter(h4number)"] ";
+}
+
+h3{
+	counter-increment: h3number;
+	counter-reset: h4number;
+}
+h3::before{
+	content:counter(h2number)"-" counter(h3number)". ";
+}
+
+h2{
+	counter-increment: h2number;
+	counter-reset: h3number;
+}
+h2::before{
+	content:counter(h2number)". ";
+}
+
